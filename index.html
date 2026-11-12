@@ -328,7 +328,7 @@
             </div>
 
             <!-- Grid Galeri Foto Potrait 9:16 -->
-            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="gallery-grid" class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6"></div>
 
         </div>
     </section>
@@ -370,7 +370,7 @@
             <!-- Sub-bagian Foto Collective -->
             <div id="collective-photos-block" class="space-y-4">
                 <h3 id="collective-photos-heading" class="font-title font-bold text-xl uppercase tracking-wide text-textMain">Collective Photos</h3>
-                <div id="collective-photos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div id="collective-photos-grid" class="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6"></div>
             </div>
 
             <!-- Sub-bagian Video Collective -->
@@ -531,11 +531,13 @@
                     // Pilihan: "center top", "center center", "center 20%", "left top", "right top"
                     heroPhotoPosition: "center top",
 
-                    // Jumlah kolom galeri foto utama di layar laptop (Pilihan angka: 2, 3, atau 4)
-                    galleryColumns: 3,
+                    // Jumlah kolom galeri foto utama (Pilihan angka: 1, 2, 3, atau 4)
+                    galleryColumnsMobile: 3,  // Jumlah kolom di layar HP / Mobile
+                    galleryColumns: 3,        // Jumlah kolom di layar laptop / Desktop
 
-                    // Jumlah kolom galeri foto DJ Collective di layar laptop (Pilihan angka: 2, 3, atau 4)
-                    collectivePhotoColumns: 3,
+                    // Jumlah kolom galeri foto DJ Collective (Pilihan angka: 1, 2, 3, atau 4)
+                    collectivePhotoColumnsMobile: 3, // Jumlah kolom foto collective di layar HP / Mobile
+                    collectivePhotoColumns: 3,       // Jumlah kolom foto collective di layar laptop / Desktop
 
                     // Tampilkan atau Sembunyikan bagian tertentu (true = Tampil, false = Sembunyikan)
                     showSections: {
@@ -651,7 +653,7 @@
                 sectionTitle: "Press Photos & Logos",
                 subtitle: "Klik foto untuk melihat ukuran penuh, atau unduh paket resolusi tinggi (Foto HD, Logo PNG/Vector, Bio PDF) melalui Google Drive.",
                 downloadButtonText: "Download Press Kit (GDrive)",
-                downloadUrl: "https://drive.google.com/drive/folders/GANTI_DENGAN_LINK_GDRIVE_KAMU",
+                downloadUrl: "https://drive.google.com/drive/folders/1Badnm6DAtTYchdaFudJUxif2fGB8annj",
                 
                 // Daftar Foto Galeri (Rasio 9:16 Potrait)
                 photos: [
@@ -886,6 +888,20 @@
             try {
                 const { theme, hero, about, music, gigs, gallery, collective, rider, contact } = siteData;
 
+                // Helper kelas kolom grid responsif (Mobile -> Tablet -> Desktop)
+                const getResponsiveGridCols = (mobileCols, desktopCols) => {
+                    const baseMap = { 1: 'grid-cols-1', 2: 'grid-cols-2', 3: 'grid-cols-3', 4: 'grid-cols-4' };
+                    const smMap = { 1: 'sm:grid-cols-1', 2: 'sm:grid-cols-2', 3: 'sm:grid-cols-3', 4: 'sm:grid-cols-4' };
+                    const lgMap = { 1: 'lg:grid-cols-1', 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4' };
+
+                    const m = baseMap[mobileCols] || 'grid-cols-3';
+                    const smVal = Math.max(mobileCols || 3, Math.min(desktopCols || 3, 3));
+                    const sm = smMap[smVal] || 'sm:grid-cols-3';
+                    const lg = lgMap[desktopCols] || 'lg:grid-cols-3';
+
+                    return `grid ${m} ${sm} ${lg} gap-2 sm:gap-4 lg:gap-6`;
+                };
+
                 // 1. TERAPKAN WARNA & FONT DARI `siteData.theme`
                 const root = document.documentElement;
                 root.style.setProperty('--bg-main', theme.colors.bgMain);
@@ -1110,27 +1126,27 @@
                     `;
                 }).join('');
 
-                // 7. RENDER GALLERY & ATUR JUMLAH KOLOM DINAMIS (`galleryColumns`) - RASIO POTRAIT 9:16
+                // 7. RENDER GALLERY & ATUR JUMLAH KOLOM DINAMIS (MOBILE & DESKTOP) - RASIO POTRAIT 9:16
                 document.getElementById('gallery-section-title').textContent = gallery.sectionTitle;
                 document.getElementById('gallery-subtitle').textContent = gallery.subtitle;
                 document.getElementById('gallery-download-text').textContent = gallery.downloadButtonText;
                 document.getElementById('gallery-download-btn').href = gallery.downloadUrl;
 
                 const galleryGrid = document.getElementById('gallery-grid');
-                const colCount = theme.layout.galleryColumns || 3;
-                const lgColsClass = colCount === 2 ? 'lg:grid-cols-2' : colCount === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
-                galleryGrid.className = `grid grid-cols-1 sm:grid-cols-2 ${lgColsClass} gap-6`;
+                const mobileColCount = theme.layout.galleryColumnsMobile ?? 3;
+                const desktopColCount = theme.layout.galleryColumns ?? 3;
+                galleryGrid.className = getResponsiveGridCols(mobileColCount, desktopColCount);
 
                 galleryGrid.innerHTML = (gallery.photos || []).map((photo, index) => `
-                    <button type="button" data-source="gallery" data-index="${index}" class="gallery-item group relative rounded-2xl overflow-hidden border border-borderDark bg-bgCard aspect-[9/16] text-left focus:outline-none hover-border-accent">
+                    <button type="button" data-source="gallery" data-index="${index}" class="gallery-item group relative rounded-xl sm:rounded-2xl overflow-hidden border border-borderDark bg-bgCard aspect-[9/16] text-left focus:outline-none hover-border-accent">
                         <img src="${photo.url}" 
                              style="object-position: ${photo.objectPosition || 'center center'};"
                              onerror="this.onerror=null;this.src='https://placehold.co/900x1600/121215/CC0000?text=FOTO+GALERI+${index + 1}';"
                              alt="${photo.caption || `Foto Galeri ${index + 1}`}" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-x-0 bottom-0 bg-bgMain border-t border-borderDark px-4 py-3 flex items-center justify-between">
-                            <span class="text-xs font-medium text-textMain truncate pr-2">${photo.caption || ''}</span>
-                            <span class="text-xs font-title font-bold text-accent shrink-0">Zoom +</span>
+                        <div class="absolute inset-x-0 bottom-0 bg-bgMain border-t border-borderDark px-2 py-1.5 sm:px-4 sm:py-3 flex items-center justify-between">
+                            <span class="text-[10px] sm:text-xs font-medium text-textMain truncate pr-1 sm:pr-2">${photo.caption || ''}</span>
+                            <span class="text-[10px] sm:text-xs font-title font-bold text-accent shrink-0">Zoom +</span>
                         </div>
                     </button>
                 `).join('');
@@ -1187,9 +1203,9 @@
                         collPhotosBlock.classList.add('hidden');
                     } else {
                         collPhotosBlock.classList.remove('hidden');
-                        const collColCount = theme.layout.collectivePhotoColumns || 3;
-                        const collLgColsClass = collColCount === 2 ? 'lg:grid-cols-2' : collColCount === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
-                        collPhotosGrid.className = `grid grid-cols-1 sm:grid-cols-2 ${collLgColsClass} gap-6`;
+                        const collMobileColCount = theme.layout.collectivePhotoColumnsMobile ?? 3;
+                        const collDesktopColCount = theme.layout.collectivePhotoColumns ?? 3;
+                        collPhotosGrid.className = getResponsiveGridCols(collMobileColCount, collDesktopColCount);
 
                         const photoAspectMap = {
                             '9/16': 'aspect-[9/16]',
@@ -1201,15 +1217,15 @@
                         const aspectClass = photoAspectMap[collective.photoAspectRatio] || 'aspect-[4/5]';
 
                         collPhotosGrid.innerHTML = collPhotos.map((photo, index) => `
-                            <button type="button" data-source="collective" data-index="${index}" class="gallery-item group relative rounded-2xl overflow-hidden border border-borderDark bg-bgCard ${aspectClass} text-left focus:outline-none hover-border-accent">
+                            <button type="button" data-source="collective" data-index="${index}" class="gallery-item group relative rounded-xl sm:rounded-2xl overflow-hidden border border-borderDark bg-bgCard ${aspectClass} text-left focus:outline-none hover-border-accent">
                                 <img src="${photo.url}" 
                                      style="object-position: ${photo.objectPosition || 'center center'};"
                                      onerror="this.onerror=null;this.src='https://placehold.co/800x1000/121215/CC0000?text=COLLECTIVE+FOTO+${index + 1}';"
                                      alt="${photo.caption || `Foto Collective ${index + 1}`}" 
                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                                <div class="absolute inset-x-0 bottom-0 bg-bgMain border-t border-borderDark px-4 py-3 flex items-center justify-between">
-                                    <span class="text-xs font-medium text-textMain truncate pr-2">${photo.caption || ''}</span>
-                                    <span class="text-xs font-title font-bold text-accent shrink-0">Zoom +</span>
+                                <div class="absolute inset-x-0 bottom-0 bg-bgMain border-t border-borderDark px-2 py-1.5 sm:px-4 sm:py-3 flex items-center justify-between">
+                                    <span class="text-[10px] sm:text-xs font-medium text-textMain truncate pr-1 sm:pr-2">${photo.caption || ''}</span>
+                                    <span class="text-[10px] sm:text-xs font-title font-bold text-accent shrink-0">Zoom +</span>
                                 </div>
                             </button>
                         `).join('');

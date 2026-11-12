@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Electronic Press Kit (EPK)</title>
+    
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Link Google Fonts Dinamis (Otomatis diperbarui sesuai pilihan font di siteData) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link id="dynamic-google-fonts" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Konfigurasi Tailwind agar terhubung langsung dengan CSS Variables dari siteData -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['var(--font-heading)', 'sans-serif'],
+                        body: ['var(--font-body)', 'sans-serif'],
+                    },
+                    colors: {
+                        bgMain: 'var(--bg-main)',
+                        bgCard: 'var(--bg-card)',
+                        bgElevated: 'var(--bg-elevated)',
+                        borderDark: 'var(--border-color)',
+                        textMain: 'var(--text-main)',
+                        textMuted: 'var(--text-muted)',
+                        accent: 'var(--accent)',
+                        accentText: 'var(--accent-text)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Nilai Default CSS Variables (Akan ditimpa otomatis oleh siteData saat halaman dimuat) */
+        :root {
+            --bg-main: #09090B;
+            --bg-card: #121215;
+            --bg-elevated: #1A1A1F;
+            --border-color: #27272A;
+            --text-main: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --accent: #CC0000;
+            --accent-text: #FFFFFF;
+            --font-heading: 'Syne';
+            --font-body: 'Inter';
+            --hero-logo-h-mobile: 72px;
+            --hero-logo-h-desktop: 110px;
+            --collective-logo-h-mobile: 64px;
+            --collective-logo-h-desktop: 96px;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-body), sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-title {
+            font-family: var(--font-heading), sans-serif;
+        }
+
+        /* Ukuran Dinamis Logo Hero (Responsif HP & Desktop) */
+        .hero-logo-img {
+            max-height: var(--hero-logo-h-mobile);
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        @media (min-width: 1024px) {
+            .hero-logo-img {
+                max-height: var(--hero-logo-h-desktop);
+            }
+        }
+
+        /* Ukuran Dinamis Logo Collective (Responsif HP & Desktop) */
+        .collective-logo-img {
+            max-height: var(--collective-logo-h-mobile);
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        @media (min-width: 1024px) {
+            .collective-logo-img {
+                max-height: var(--collective-logo-h-desktop);
+            }
+        }
+
+        /* Utilitas Tombol & Aksen Solid Tanpa Gradasi */
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--accent-text);
+        }
+        .btn-accent:hover {
+            filter: brightness(0.92);
+        }
+        .hover-border-accent:hover {
+            border-color: var(--accent);
+        }
+
+        /* Custom Scrollbar Solid */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[var(--accent)] selection:text-[var(--accent-text)]">
+
+    <!-- =====================================================================
+         NAVIGASI ATAS (STICKY NAVBAR)
+    ====================================================================== -->
+    <header class="sticky top-0 z-40 w-full bg-bgMain border-b border-borderDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo / Nama DJ -->
+                <a href="#" class="flex items-center gap-3">
+                    <span class="w-3.5 h-3.5 bg-accent inline-block rounded-sm"></span>
+                    <span id="nav-dj-name" class="font-title font-extrabold text-xl sm:text-2xl tracking-wider uppercase text-textMain">
+                        DJ NAME
+                    </span>
+                </a>
+
+                <!-- Menu Navigasi Desktop (Otomatis menyesuaikan bagian yang aktif) -->
+                <nav id="desktop-nav" class="hidden md:flex items-center space-x-7 text-sm font-title font-bold uppercase tracking-wider text-textMuted">
+                    <!-- Diisi otomatis oleh JavaScript -->
+                </nav>
+
+                <!-- Tombol Menu Mobile (HP) -->
+                <button id="mobile-menu-btn" aria-label="Buka Menu" class="md:hidden p-2.5 rounded-lg border border-borderDark bg-bgCard text-textMain hover-border-accent">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu Mobile (HP) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-bgCard border-b border-borderDark px-4 pt-3 pb-6 space-y-2">
+            <!-- Diisi otomatis oleh JavaScript -->
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         BAGIAN 1: HERO SECTION (TATA LETAK DINAMIS: SPLIT-RIGHT / SPLIT-LEFT / CENTER)
+    ====================================================================== -->
+    <section id="section-hero" class="relative pt-10 pb-16 sm:pt-16 sm:pb-24 border-b border-borderDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="hero-layout-container" class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                
+                <!-- Blok Teks & Tombol Hero -->
+                <div id="hero-text-col" class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-bgCard border border-borderDark text-xs font-title font-bold uppercase tracking-widest text-accent">
+                        <span class="w-2 h-2 rounded-full bg-accent"></span>
+                        <span id="hero-badge">OFFICIAL ELECTRONIC PRESS KIT</span>
+                    </div>
+
+                    <!-- Wadah Nama / Logo Utama DJ (Diatur dari siteData.hero.logo) -->
+                    <div id="hero-brand-wrapper" class="w-full flex justify-start">
+                        <img id="hero-logo-img"
+                             src=""
+                             alt="Logo DJ"
+                             class="hidden hero-logo-img">
+                        <h1 id="hero-name" class="font-title font-extrabold text-5xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-textMain leading-[1.05]">
+                            DJ NAME
+                        </h1>
+                    </div>
+
+                    <!-- Tag Genre Musik -->
+                    <div id="hero-genres" class="flex flex-wrap gap-2"></div>
+
+                    <p id="hero-tagline" class="text-lg sm:text-xl text-textMuted max-w-2xl leading-relaxed">
+                        Tagline DJ...
+                    </p>
+
+                    <!-- Tombol CTA Utama (Hanya Book Now) -->
+                    <div id="hero-buttons" class="pt-4 flex flex-col sm:flex-row gap-4">
+                        <a id="hero-book-btn" href="#section-contact" class="inline-flex items-center justify-center gap-2.5 px-8 py-4 btn-accent font-title font-bold text-base uppercase tracking-wider rounded-xl transition-transform active:scale-95">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span id="hero-book-text">Book Now</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Blok Foto Utama DJ -->
+                <div id="hero-photo-col" class="lg:col-span-5">
+                    <div id="hero-photo-frame" class="relative rounded-2xl overflow-hidden border-2 border-borderDark bg-bgCard aspect-[4/5] max-w-md mx-auto lg:max-w-none">
+                        <img id="hero-image" 
+                             src="" 
+                             onerror="this.onerror=null;this.src='https://placehold.co/800x1000/121215/CC0000?text=FOTO+DJ+BELUM+DITEMUKAN';"
+                             alt="Foto Utama DJ" 
+                             class="w-full h-full object-cover">
+                        
+                        <!-- Badge Lokasi Solid di Bawah Foto -->
+                        <div class="absolute bottom-4 left-4 right-4 bg-bgMain border border-borderDark px-4 py-3 rounded-xl flex items-center justify-between">
+                            <div>
+                                <p class="text-[11px] font-title uppercase tracking-wider text-textMuted">Based In</p>
+                                <p id="hero-location" class="text-sm font-bold text-textMain">Jakarta, Indonesia</p>
+                            </div>
+                            <span id="hero-availability" class="px-2.5 py-1 text-xs font-bold uppercase btn-accent rounded">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         BAGIAN 2: ABOUT / BIO & STATISTIK PENCAPAIAN
+    ====================================================================== -->
+    <section id="section-about" class="py-16 sm:py-24 border-b border-borderDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Kolom Kiri: Judul, Statistik & Daftar Venue -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-xs font-title font-bold uppercase tracking-widest text-accent">Profile</span>
+                        <h2 id="about-section-title" class="font-title font-extrabold text-3xl sm:text-4xl uppercase text-textMain mt-2">Biography</h2>
+                    </div>
+
+                    <!-- Grid Statistik Pencapaian -->
+                    <div id="about-stats" class="grid grid-cols-2 gap-4 pt-2"></div>
+
+                    <!-- Daftar Klub / Festival -->
+                    <div class="p-5 rounded-xl bg-bgCard border border-borderDark space-y-3">
+                        <h3 id="about-venues-title" class="text-xs font-title font-bold uppercase tracking-wider text-textMuted">Notable Venues & Festivals</h3>
+                        <div id="about-venues" class="flex flex-wrap gap-2"></div>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: Paragraf Biografi Lengkap -->
+                <div class="lg:col-span-7 flex flex-col justify-center">
+                    <div class="p-6 sm:p-8 rounded-2xl bg-bgCard border border-borderDark space-y-5">
+                        <h3 id="about-headline" class="font-title font-bold text-xl sm:text-2xl text-textMain"></h3>
+                        <div id="about-paragraphs" class="space-y-4 text-textMuted leading-relaxed text-base"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         BAGIAN 3: MUSIC & MIXES (EMBED PLAYER & TOP TRACKS)
+    ====================================================================== -->
+    <section id="section-music" class="py-16 sm:py-24 border-b border-borderDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                <div>
+                    <span class="text-xs font-title font-bold uppercase tracking-widest text-accent">02 // Discography & Sets</span>
+                    <h2 id="music-section-title" class="font-title font-extrabold text-3xl sm:text-4xl uppercase text-textMain mt-2">Music & Mixes</h2>
+                </div>
+                <p id="music-subtitle" class="text-sm text-textMuted max-w-md"></p>
+            </div>
+
+            <!-- Embed Pemutar Musik (SoundCloud / Mixcloud / YouTube) -->
+            <div id="music-embeds" class="grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
+
+            <!-- Daftar Top Tracks -->
+            <div class="space-y-4 pt-4">
+                <h3 class="font-title font-bold text-xl uppercase tracking-wide text-textMain">Top Tracks & Releases</h3>
+                <div id="music-tracks" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         BAGIAN 4: GIGS & EVENTS (JADWAL MANGGUNG)
+    ====================================================================== -->
+    <section id="section-gigs" class="py-16 sm:py-24 border-b border-borderDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            
+            <div>
+                <span class="text-xs font-title font-bold uppercase tracking-widest text-accent">03 // Tour & Shows</span>
+                <h2 id="gigs-section-title" class="font-title font-extrabold text-3xl sm:text-4xl uppercase text-textMain mt-2">Upcoming & Past Gigs</h2>
+            </div>
+
+            <div class="rounded-2xl border border-borderDark bg-bgCard overflow-hidden">
+                <div id="gigs-list" class="divide-y divide-borderDark"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         BAGIAN 5: GALLERY & PRESS PHOTOS (POTRAIT 9:16 + LIGHTBOX)
+    ====================================================================== -->
+    <section id="section-gallery" class="py-16 sm:py-24 border-b border-borderDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            
+            <!-- Kotak Download Press Kit -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-6 sm:p-8 rounded-2xl bg-bgCard border-2 border-borderDark">
+                <div class="space-y-2">
+                    <span class="text-xs font-title font-bold uppercase tracking-widest text-accent">Media Assets</span>
+                    <h2 id="gallery-section-title" class="font-title font-extrabold text-3xl sm:text-4xl uppercase text-textMain">Press Photos & Logos</h2>
+                    <p id="gallery-subtitle" class="text-textMuted text-sm sm:text-base max-w-xl"></p>
+                </div>
+                <div class="shrink-0">
+                    <a id="gallery-download-btn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-7 py-4 btn-accent font-title font-bold text-sm sm:text-base uppercase tracking-wider rounded-xl transition-transform active:scale-95">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                        </svg>
+                        <span id="gallery-download-text">Download Press Kit (GDrive)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Grid Galeri Foto Potrait 9:16 -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         BAGIAN 6: DJ COLLECTIVE (LOGO, FOTO & VIDEO)
+    ====================================================================== -->
+    <section id="section-collective" class="py-16 sm:py-24 border-b border-borderDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+
+            <!-- Header & Kartu Identitas Collective -->
+            <div class="p-6 sm:p-8 lg:p-10 rounded-2xl bg-bgCard border border-borderDark flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                <div class="space-y-4 max-w-2xl">
+                    <span id="collective-eyebrow" class="text-xs font-title font-bold uppercase tracking-widest text-accent">Collective & Crew</span>
+                    
+                    <!-- Wadah Logo PNG / Nama Collective -->
+                    <div id="collective-logo-wrapper" class="flex items-center">
+                        <img id="collective-logo-img" src="" alt="Collective Logo" class="hidden collective-logo-img">
+                        <h2 id="collective-title" class="font-title font-extrabold text-3xl sm:text-4xl lg:text-5xl uppercase text-textMain">
+                            DJ COLLECTIVE
+                        </h2>
+                    </div>
+
+                    <p id="collective-description" class="text-textMuted text-sm sm:text-base leading-relaxed"></p>
+                </div>
+
+                <!-- Tombol Aksi / Sosial Media Collective -->
+                <div id="collective-action-wrapper" class="shrink-0">
+                    <a id="collective-link-btn" href="#" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-bgElevated hover:bg-bgMain text-textMain border-2 border-borderDark hover-border-accent font-title font-bold text-sm uppercase tracking-wider rounded-xl transition-colors">
+                        <svg class="w-5 h-5 text-accent fill-current" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                        <span id="collective-link-text">Follow Collective</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sub-bagian Foto Collective -->
+            <div id="collective-photos-block" class="space-y-4">
+                <h3 id="collective-photos-heading" class="font-title font-bold text-xl uppercase tracking-wide text-textMain">Collective Photos</h3>
+                <div id="collective-photos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <!-- Sub-bagian Video Collective -->
+            <div id="collective-videos-block" class="space-y-4 pt-2">
+                <h3 id="collective-videos-heading" class="font-title font-bold text-xl uppercase tracking-wide text-textMain">Collective Videos & Aftermovies</h3>
+                <div id="collective-videos-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         BAGIAN 7: TECHNICAL RIDER (KEBUTUHAN ALAT DJ)
+    ====================================================================== -->
+    <section id="section-rider" class="py-16 sm:py-24 border-b border-borderDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            
+            <div>
+                <span class="text-xs font-title font-bold uppercase tracking-widest text-accent">Stage & Booth</span>
+                <h2 id="rider-section-title" class="font-title font-extrabold text-3xl sm:text-4xl uppercase text-textMain mt-2">Technical Rider</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div id="rider-equipment" class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+
+                <div class="lg:col-span-4 p-6 rounded-2xl bg-bgCard border border-borderDark flex flex-col justify-between space-y-6">
+                    <div class="space-y-3">
+                        <div class="inline-block px-3 py-1 rounded bg-bgElevated border border-borderDark text-xs font-title font-bold uppercase text-accent">
+                            Booth & Hospitality Notes
+                        </div>
+                        <ul id="rider-notes" class="space-y-3 text-sm text-textMuted pt-2"></ul>
+                    </div>
+                    <div class="pt-4 border-t border-borderDark text-xs text-textMuted">
+                        * Konfirmasi spesifikasi teknis wajib dilakukan minimal H-7 sebelum acara berlangsung.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         BAGIAN 8: CONTACT & BOOKING
+    ====================================================================== -->
+    <footer id="section-contact" class="py-16 sm:py-24 bg-bgCard">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                
+                <!-- Kolom Kiri: Tombol Booking WA & Email -->
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="text-xs font-title font-bold uppercase tracking-widest text-accent">Inquiries & Management</span>
+                    <h2 id="contact-headline" class="font-title font-extrabold text-4xl sm:text-5xl uppercase text-textMain leading-tight">
+                        Let's Work Together.
+                    </h2>
+                    <p id="contact-subtext" class="text-textMuted text-base sm:text-lg max-w-xl"></p>
+
+                    <div class="pt-2 flex flex-col sm:flex-row gap-4">
+                        <a id="contact-wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 px-8 py-4 btn-accent font-title font-bold text-base uppercase tracking-wider rounded-xl transition-transform active:scale-95">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/>
+                            </svg>
+                            <span>Chat via WhatsApp</span>
+                        </a>
+
+                        <button id="copy-email-btn" type="button" class="inline-flex items-center justify-center gap-3 px-7 py-4 bg-bgMain hover:bg-bgElevated text-textMain border-2 border-borderDark hover-border-accent font-title font-bold text-base rounded-xl transition-colors">
+                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                            </svg>
+                            <span id="contact-email-display">booking@dj.com</span>
+                        </button>
+                    </div>
+                    <p id="copy-feedback" class="hidden text-sm font-semibold text-accent">
+                        ✓ Alamat email berhasil disalin ke clipboard!
+                    </p>
+                </div>
+
+                <!-- Kolom Kanan: Info Manajer & Ikon Sosial Media -->
+                <div class="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-bgMain border border-borderDark space-y-6">
+                    <div class="space-y-1">
+                        <p class="text-xs font-title font-bold uppercase tracking-wider text-textMuted">Booking</p>
+                        <h3 id="contact-manager-name" class="text-xl font-bold text-textMain">Manager Name</h3>
+                        <p id="contact-phone-display" class="text-sm text-textMuted">+62 812-0000-0000</p>
+                    </div>
+
+                    <div class="border-t border-borderDark pt-6 space-y-3">
+                        <p class="text-xs font-title font-bold uppercase tracking-wider text-textMuted">Follow</p>
+                        <div id="social-links-container" class="flex flex-wrap gap-3"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright Bawah -->
+            <div class="mt-16 pt-8 border-t border-borderDark flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-textMuted">
+                <p>&copy; <span id="current-year">2026</span> <span id="footer-dj-name" class="text-textMain font-semibold">DJ NAME</span>. All Rights Reserved.</p>
+                <p>Official Electronic Press Kit</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         LIGHTBOX MODAL (UNTUK PREVIEW FOTO GALERI & COLLECTIVE SAAT DIKLIK)
+    ====================================================================== -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-black/95 flex items-center justify-center p-4">
+        <button id="lightbox-close" aria-label="Tutup Preview" class="absolute top-5 right-5 p-3 rounded-xl bg-bgCard border border-borderDark text-textMain hover-border-accent">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="max-w-4xl w-full space-y-3 text-center">
+            <img id="lightbox-img" src="" alt="Preview Foto" class="max-h-[80vh] mx-auto rounded-xl border border-borderDark object-contain">
+            <p id="lightbox-caption" class="text-sm font-title font-medium text-textMain"></p>
+        </div>
+    </div>
+
+
+    <!-- =====================================================================
+         PUSAT PENGATURAN WEBSITE (`siteData`)
+         Cukup ubah nilai di dalam `siteData` di bawah ini untuk mengganti desain & isi!
+    ====================================================================== -->
+    <script>
+        const siteData = {
+            // =================================================================
+            // 1. PENGATURAN TEMA, WARNA, FONT, & TATA LETAK (DESIGN & LAYOUT)
+            // =================================================================
+            theme: {
+                // --- A. PENGATURAN WARNA SOLID (TANPA GRADASI) ---
+                colors: {
+                    bgMain: "#09090B",       // Warna latar belakang utama (Hitam pekat)
+                    bgCard: "#121215",       // Warna kotak/kartu konten (Abu-abu sangat gelap)
+                    bgElevated: "#1A1A1F",   // Warna latar saat kartu disentuh (hover)
+                    borderColor: "#27272A",  // Warna garis tepi kotak
+                    textMain: "#F4F4F5",     // Warna teks utama (Putih terang)
+                    textMuted: "#A1A1AA",    // Warna teks paragraf/deskripsi (Abu-abu terang)
+                    
+                    // WARNA AKSEN UTAMA (Tombol, angka statistik, sorotan)
+                    accent: "#CC0000",
+                    accentText: "#FFFFFF"    // Warna teks di dalam tombol aksen (Putih bersih)
+                },
+
+                // --- B. PENGATURAN JENIS FONT (OTOMATIS DIMUAT DARI GOOGLE FONTS) ---
+                fonts: {
+                    // Pilihan Font Judul (Tegas & Modern): "Syne", "Space Grotesk", "Oswald", "Archivo Black", "Bebas Neue"
+                    heading: "Syne",
+                    // Pilihan Font Teks Bacaan: "Inter", "Plus Jakarta Sans", "DM Sans", "Manrope"
+                    body: "Inter"
+                },
+
+                // --- C. PENGATURAN POSISI & TATA LETAK (LAYOUT) ---
+                layout: {
+                    // Pilihan tata letak bagian atas (Hero):
+                    // "split-right" -> Teks di kiri, Foto di kanan (Default)
+                    // "split-left"  -> Foto di kiri, Teks di kanan
+                    // "center"      -> Foto di atas tengah, Teks & tombol rata tengah
+                    heroLayout: "split-right",
+
+                    // Pengaturan posisi fokus foto utama agar kepala/wajah tidak terpotong:
+                    // Pilihan: "center top", "center center", "center 20%", "left top", "right top"
+                    heroPhotoPosition: "center top",
+
+                    // Jumlah kolom galeri foto utama di layar laptop (Pilihan angka: 2, 3, atau 4)
+                    galleryColumns: 3,
+
+                    // Jumlah kolom galeri foto DJ Collective di layar laptop (Pilihan angka: 2, 3, atau 4)
+                    collectivePhotoColumns: 3,
+
+                    // Tampilkan atau Sembunyikan bagian tertentu (true = Tampil, false = Sembunyikan)
+                    showSections: {
+                        about: true,
+                        music: false,      // Dihilangkan sesuai permintaan sebelumnya
+                        gigs: false,       // Dihilangkan sesuai permintaan sebelumnya
+                        gallery: true,
+                        collective: true,  // Kolom DJ Collective (Tampil di bawah Galeri Foto)
+                        rider: true,
+                        contact: true
+                    }
+                }
+            },
+
+            // =================================================================
+            // 2. HERO SECTION (IDENTITAS UTAMA PALING ATAS)
+            // =================================================================
+            hero: {
+                badgeText: "OFFICIAL ELECTRONIC PRESS KIT",
+                djName: "AHONG",
+
+                // --- PENGATURAN LOGO PNG PENGGANTI NAMA BESAR DI HERO ---
+                logo: {
+                    // Ubah ke `true` untuk menampilkan gambar logo PNG, atau `false` untuk pakai teks djName
+                    useLogo: true,
+                    
+                    // Nama file logo PNG transparan di folder kamu (Contoh: "logo-ahong.png")
+                    url: "wer.png",
+                    
+                    // Ukuran tinggi maksimal logo (dalam pixel) agar tetap proporsional
+                    heightDesktop: 250,  // Tinggi di layar laptop/PC (px)
+                    heightMobile: 72,    // Tinggi di layar HP (px)
+                    
+                    // Posisi perataan logo: "left" (rata kiri), "center" (tengah), atau "right" (rata kanan)
+                    alignment: "left",
+                    
+                    // Jarak spasi atas & bawah logo (dalam pixel)
+                    marginTop: 4,
+                    marginBottom: 4,
+
+                    // Jika file gambar logo gagal dimuat/belum ada, otomatis tampilkan teks djName (true / false)
+                    fallbackToText: true
+                },
+
+                genres: ["Baile", "Miami Bass", "Jersey Club", "Amapiano", "Trap", "Tech House", "Open Format"],
+                tagline: "Bukan hanya tentang menikmati musik dan berdansa, tetapi juga mengeksplorasi keberagaman genre, menemukan sound baru, dan menciptakan pengalaman musikal yang berbeda.",
+                location: "Tasikmalaya, Indonesia",
+                availabilityText: "Open for Bookings",
+                
+                // GANTI DENGAN NAMA FILE FOTO LOKAL DI FOLDER KAMU (Contoh: "foto-ahong.jpg" atau "images/foto-ahong.png")
+                photoUrl: "AVATAR3.jpeg",
+
+                // Teks Tombol Utama
+                bookButtonText: "Book Now"
+            },
+
+            // =================================================================
+            // 3. ABOUT / BIOGRAFI & STATISTIK PENCAPAIAN
+            // =================================================================
+            about: {
+                sectionTitle: "Biography",
+                headline: "The reason why i became a DJ",
+                paragraphs: [
+                    "Musik membuatku bahagia, dan berbagi kebahagiaan itu dengan kalian membuatku jauh lebih bahagia. Itulah alasan mengapa aku memilih menjadi seorang DJ"
+                ],
+                // Kotak Statistik (Disarankan 4 item agar pas 2x2)
+                stats: [
+                    { value: "4+", label: "Tahun Aktif" },
+                    { value: "30+", label: "Total Gigs & Event" },
+                    { value: "5", label: "Kota Tur" },
+                    { value: "5+", label: "Genre" }
+                ],
+                // Judul & Daftar tempat/event yang pernah dimainkan (Bisa diedit bebas)
+                notableVenuesTitle: "Notable Venues & Event",
+                notableVenues: [
+                    "Kopilogi",
+                    "Casacola",
+                    "Notre",
+                    "LYF Pool Hall & Coffee",
+                    "Hummer Unper",
+                    "Coklat Kita",
+                    "Experience.ID",
+                    "WEYbyPraya",
+                    "Erende",
+                    "Caspia",
+                    "Pasini Coffe",
+                    "WaroengSoekardjo"
+                ]
+            },
+
+            // =================================================================
+            // 4. MUSIC & MIXES (DISIMPAN SEBAGAI CADANGAN JIKA NANTI DIAKTIFKAN)
+            // =================================================================
+            music: {
+                sectionTitle: "Music & Mixes",
+                subtitle: "Dengarkan rekaman live DJ set dan rilisan terbaru langsung melalui pemutar di bawah ini.",
+                embeds: [],
+                topTracks: []
+            },
+
+            // =================================================================
+            // 5. GIGS / JADWAL MANGGUNG (DISIMPAN SEBAGAI CADANGAN JIKA NANTI DIAKTIFKAN)
+            // =================================================================
+            gigs: {
+                sectionTitle: "Gigs & Tour Dates",
+                items: []
+            },
+
+            // =================================================================
+            // 6. GALLERY & PRESS PHOTOS (POTRAIT 9:16)
+            // =================================================================
+            gallery: {
+                sectionTitle: "Press Photos & Logos",
+                subtitle: "Klik foto untuk melihat ukuran penuh, atau unduh paket resolusi tinggi (Foto HD, Logo PNG/Vector, Bio PDF) melalui Google Drive.",
+                downloadButtonText: "Download Press Kit (GDrive)",
+                downloadUrl: "https://drive.google.com/drive/folders/GANTI_DENGAN_LINK_GDRIVE_KAMU",
+                
+                // Daftar Foto Galeri (Rasio 9:16 Potrait)
+                photos: [
+                    {
+                        url: "1 (4).jpeg",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (14).PNG",
+                        caption: "",
+                        objectPosition: "center top"
+                    },
+                    {
+                        url: "1 (13).PNG",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (6).PNG",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (9).PNG",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (8).PNG",
+                        caption: "",
+                        objectPosition: "center top"
+                    },
+                    {
+                        url: "IMG_4395.PNG",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (5).jpeg",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "IMG_3167.PNG",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (1).jpeg",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (6).jpeg",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (3).jpeg",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "IMG_5846.PNG",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1 (10).PNG",
+                        caption: "",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "IMG_4392.PNG",
+                        caption: "",
+                        objectPosition: "center center"
+                    }
+                ]
+            },
+
+            // =================================================================
+            // 7. DJ COLLECTIVE (LOGO COLLECTIVE, FOTO & VIDEO)
+            // =================================================================
+            collective: {
+                // Label navigasi di menu atas (Navbar)
+                navLabel: "Collective",
+
+                // Label kecil di atas judul
+                eyebrow: "DJ Collective & Crew",
+
+                // Nama Collective (Tampil jika logo tidak dipakai atau gagal dimuat)
+                name: "NAMA COLLECTIVE KAMU",
+
+                // Deskripsi singkat tentang collective
+                description: "Bagian dari kolektif DJ & komunitas musik elektronik yang berfokus menghadirkan pengalaman pesta dan kurasi musik lintas genre.",
+
+                // Tombol link ke Instagram / Profil Collective (Kosongkan "" jika tidak ingin menampilkan tombol)
+                linkText: "Instagram Collective",
+                linkUrl: "https://www.instagram.com/sideofnoir/",
+
+                // --- PENGATURAN LOGO PNG COLLECTIVE ---
+                logo: {
+                    useLogo: true,                    // true = tampilkan logo PNG, false = tampilkan teks nama collective
+                    url: "son logotype.png",          // Ganti dengan nama file logo PNG collective di folder kamu
+                    heightDesktop: 250,               // Tinggi maksimal logo di layar laptop/PC (px)
+                    heightMobile: 64,                 // Tinggi maksimal logo di layar HP (px)
+                    fallbackToText: true              // Tampilkan teks nama collective jika file gambar belum ada
+                },
+
+                // --- PENGATURAN FOTO-FOTO COLLECTIVE ---
+                photosTitle: "Collective Photos",
+                // Pilihan rasio foto collective: "9/16" (Potrait), "4/5" (Potrait IG), "1/1" (Kotak), "4/3" (Landscape), "16/9" (Wide)
+                photoAspectRatio: "4/5",
+                photos: [
+                    {
+                        url: "4.jpg",
+                        caption: "Collective Lineup & Crew",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "1.jpg",
+                        caption: "Back-to-Back Club Session",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "2.jpg",
+                        caption: "Crowd & Stage Atmosphere",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "7.jpg",
+                        caption: "Collective Lineup & Crew",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "3.jpg",
+                        caption: "Back-to-Back Club Session",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "6.jpg",
+                        caption: "Crowd & Stage Atmosphere",
+                        objectPosition: "center center"
+                    },
+                    {
+                        url: "5.jpg",
+                        caption: "Crowd & Stage Atmosphere",
+                        objectPosition: "center center"
+                    }
+                ],
+
+                // --- PENGATURAN VIDEO-VIDEO COLLECTIVE ---
+                videosTitle: "PART OF COLLECTIVE",
+                // Jumlah kolom video di layar laptop (Pilihan angka: 1, 2, atau 3)
+                videoColumns: 1,
+                // Pilihan rasio pemutar video: "16/9" (Landscape) atau "9/16" (Reels / TikTok / Shorts)
+                videoAspectRatio: "16/9",
+                videos: [
+                    {
+                        // Pilihan type: "local" (file .mp4 di folder kamu) atau "youtube" (link embed YouTube)
+                        type: "local",
+                        title: "LIVESET AHONG",
+                        url: "23.mp4",
+                        poster: "D.jpeg" // Gambar thumbnail sebelum video diputar
+                    }
+                ]
+            },
+
+            // =================================================================
+            // 8. TECHNICAL RIDER (KEBUTUHAN ALAT DJ)
+            // =================================================================
+            rider: {
+                sectionTitle: "Technical Rider",
+                equipment: [
+                    {
+                        category: "DJ EQUIMENT",
+                        item: "DDJ FLX4",
+                        detail: "Konfirmasi jika tidak tersedia."
+                    },
+                    {
+                        category: "WIRED",
+                        item: "Segala kebutuhan kabel Audio lengkap",
+                        detail: "Konfirmasi jika tidak tersedia."
+                    },
+                    {
+                        category: "DESK SETUP",
+                        item: "Meja DJ kokoh (tinggi standar kurang lebih 90-100cm)",
+                        detail: "ITEM WAJIB"
+                    },
+                    {
+                        category: "ROOM",
+                        item: "Tempat aman untuk menyimpan barang pribadi",
+                        detail: "Tersedia ruangan pribadi lebih baik."
+                    }
+                ],
+                notes: [
+                    "2x Botol air mineral.",
+                    "2x Minuman berkarbonasi.",
+                    "Snack atau Makanan Ringan.",
+                    "Makanan Berat.",
+                    "1x bks Sampoerna Mild"
+                ]
+            },
+
+            // =================================================================
+            // 9. CONTACT & BOOKING
+            // =================================================================
+            contact: {
+                headline: "Let's Work Together.",
+                subtext: "Untuk penawaran jadwal manggung (club, festival, private event), kolaborasi musik, atau wawancara media, hubungi kontak resmi di bawah ini.",
+                managerName: "Rifani Ramadhan",
+                email: "ahonglee24@gmail.com",
+                // Format nomor WA wajib pakai kode negara tanpa tanda + (Contoh: 6281234567890)
+                whatsappNumber: "628979763214",
+                whatsappMessage: "Halo, saya tertarik untuk menanyakan jadwal & rate card booking AHONG.",
+                
+                // Link Sosial Media (Kosongkan "" jika tidak ingin menampilkan ikon tertentu)
+                socials: {
+                    instagram: "https://www.instagram.com/rifanxv?xtok=ZjI3aTgybHUzbTk%3D&utm_source=qr",
+                    tiktok: "https://www.tiktok.com/@rifanxv_?_r=1&_t=ZS-9BLtNARvTNc"
+                }
+            }
+        };
+
+
+        /* =====================================================================
+           MESIN RENDER OTOMATIS (MENERAPKAN TEMA, LAYOUT & KONTEN DARI siteData)
+           Tidak perlu diubah kecuali kamu ingin memodifikasi struktur kode HTML.
+        ===================================================================== */
+        document.addEventListener("DOMContentLoaded", () => {
+            try {
+                const { theme, hero, about, music, gigs, gallery, collective, rider, contact } = siteData;
+
+                // 1. TERAPKAN WARNA & FONT DARI `siteData.theme`
+                const root = document.documentElement;
+                root.style.setProperty('--bg-main', theme.colors.bgMain);
+                root.style.setProperty('--bg-card', theme.colors.bgCard);
+                root.style.setProperty('--bg-elevated', theme.colors.bgElevated);
+                root.style.setProperty('--border-color', theme.colors.borderColor);
+                root.style.setProperty('--text-main', theme.colors.textMain);
+                root.style.setProperty('--text-muted', theme.colors.textMuted);
+                root.style.setProperty('--accent', theme.colors.accent);
+                root.style.setProperty('--accent-text', theme.colors.accentText);
+                root.style.setProperty('--font-heading', `'${theme.fonts.heading}'`);
+                root.style.setProperty('--font-body', `'${theme.fonts.body}'`);
+
+                // Muat Google Fonts sesuai pilihan user di siteData
+                const headingFontUrl = theme.fonts.heading.replace(/ /g, '+');
+                const bodyFontUrl = theme.fonts.body.replace(/ /g, '+');
+                const fontLink = document.getElementById('dynamic-google-fonts');
+                fontLink.href = `https://fonts.googleapis.com/css2?family=${bodyFontUrl}:wght@400;500;600;700&family=${headingFontUrl}:wght@700;800&display=swap`;
+
+                document.title = `${hero.djName} — Electronic Press Kit (EPK)`;
+
+                // 2. ATUR VISIBILITAS SECTION & MENU NAVIGASI DINAMIS
+                const navItems = [
+                    { key: 'about', label: 'Bio', href: '#section-about' },
+                    { key: 'music', label: 'Music', href: '#section-music' },
+                    { key: 'gigs', label: 'Gigs', href: '#section-gigs' },
+                    { key: 'gallery', label: 'Photos', href: '#section-gallery' },
+                    { key: 'collective', label: (collective && collective.navLabel) || 'Collective', href: '#section-collective' },
+                    { key: 'rider', label: 'Tech Rider', href: '#section-rider' }
+                ];
+
+                const activeNavItems = navItems.filter(item => theme.layout.showSections[item.key] !== false);
+
+                // Sembunyikan section yang diset `false`
+                Object.entries(theme.layout.showSections).forEach(([secKey, isVisible]) => {
+                    const el = document.getElementById(`section-${secKey}`);
+                    if (el && isVisible === false) {
+                        el.classList.add('hidden');
+                    }
+                });
+
+                // Render Desktop Navbar
+                const desktopNav = document.getElementById('desktop-nav');
+                desktopNav.innerHTML = activeNavItems.map(item => `
+                    <a href="${item.href}" class="hover:text-textMain transition-colors">${item.label}</a>
+                `).join('') + (theme.layout.showSections.contact !== false ? `
+                    <a href="#section-contact" class="px-5 py-2.5 btn-accent font-bold rounded-lg transition-transform active:scale-95">
+                        ${hero.bookButtonText}
+                    </a>
+                ` : '');
+
+                // Render Mobile Navbar
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.innerHTML = activeNavItems.map(item => `
+                    <a href="${item.href}" class="mobile-link block py-2.5 text-base font-title font-bold uppercase text-textMuted hover:text-textMain">${item.label}</a>
+                `).join('') + (theme.layout.showSections.contact !== false ? `
+                    <a href="#section-contact" class="mobile-link block w-full text-center py-3 mt-2 btn-accent font-title font-bold uppercase rounded-lg">${hero.bookButtonText}</a>
+                ` : '');
+
+                // 3. RENDER HERO SECTION, LOGO PNG & TATA LETAK (`heroLayout` & `heroPhotoPosition`)
+                document.getElementById('nav-dj-name').textContent = hero.djName;
+                document.getElementById('hero-badge').textContent = hero.badgeText;
+                document.getElementById('hero-tagline').textContent = hero.tagline;
+                document.getElementById('hero-location').textContent = hero.location;
+                document.getElementById('hero-availability').textContent = hero.availabilityText;
+                document.getElementById('hero-book-text').textContent = hero.bookButtonText;
+
+                // Pengaturan Logo PNG vs Teks Nama DJ di Hero
+                const brandWrapper = document.getElementById('hero-brand-wrapper');
+                const logoImg = document.getElementById('hero-logo-img');
+                const heroNameEl = document.getElementById('hero-name');
+                heroNameEl.textContent = hero.djName;
+
+                const logoCfg = hero.logo || {};
+                const hDesktop = logoCfg.heightDesktop || 110;
+                const hMobile = logoCfg.heightMobile || 72;
+                root.style.setProperty('--hero-logo-h-desktop', `${hDesktop}px`);
+                root.style.setProperty('--hero-logo-h-mobile', `${hMobile}px`);
+
+                // Posisi alignment & spasi logo
+                const alignMap = {
+                    left: 'justify-start text-left',
+                    center: 'justify-center text-center',
+                    right: 'justify-end text-right'
+                };
+                const defaultAlign = theme.layout.heroLayout === 'center' ? 'center' : 'left';
+                const chosenAlign = logoCfg.alignment || defaultAlign;
+                brandWrapper.className = `w-full flex ${alignMap[chosenAlign] || 'justify-start text-left'}`;
+                brandWrapper.style.marginTop = `${logoCfg.marginTop ?? 4}px`;
+                brandWrapper.style.marginBottom = `${logoCfg.marginBottom ?? 4}px`;
+
+                if (logoCfg.useLogo && logoCfg.url) {
+                    logoImg.src = logoCfg.url;
+                    logoImg.alt = `Logo ${hero.djName}`;
+                    logoImg.classList.remove('hidden');
+                    heroNameEl.classList.add('hidden');
+
+                    // Fallback otomatis jika file logo PNG belum ditemukan di folder
+                    logoImg.onerror = () => {
+                        logoImg.classList.add('hidden');
+                        if (logoCfg.fallbackToText !== false) {
+                            heroNameEl.classList.remove('hidden');
+                        }
+                    };
+                } else {
+                    logoImg.classList.add('hidden');
+                    heroNameEl.classList.remove('hidden');
+                }
+
+                const heroImg = document.getElementById('hero-image');
+                heroImg.src = hero.photoUrl;
+                heroImg.alt = `Press Photo ${hero.djName}`;
+                heroImg.style.objectPosition = theme.layout.heroPhotoPosition || 'center top';
+
+                // Terapkan varian tata letak Hero
+                const heroTextCol = document.getElementById('hero-text-col');
+                const heroPhotoCol = document.getElementById('hero-photo-col');
+                const heroPhotoFrame = document.getElementById('hero-photo-frame');
+                const heroGenres = document.getElementById('hero-genres');
+                const heroButtons = document.getElementById('hero-buttons');
+
+                if (theme.layout.heroLayout === 'split-left') {
+                    heroPhotoCol.className = 'lg:col-span-5 order-1 lg:order-1';
+                    heroTextCol.className = 'lg:col-span-7 space-y-6 order-2 lg:order-2';
+                } else if (theme.layout.heroLayout === 'center') {
+                    heroPhotoCol.className = 'lg:col-span-12 order-1 flex justify-center';
+                    heroPhotoFrame.className = 'relative rounded-2xl overflow-hidden border-2 border-borderDark bg-bgCard aspect-[4/5] w-full max-w-sm';
+                    heroTextCol.className = 'lg:col-span-12 order-2 text-center flex flex-col items-center space-y-6';
+                    heroGenres.classList.add('justify-center');
+                    heroButtons.classList.add('justify-center');
+                } else {
+                    heroTextCol.className = 'lg:col-span-7 space-y-6 order-2 lg:order-1';
+                    heroPhotoCol.className = 'lg:col-span-5 order-1 lg:order-2';
+                }
+
+                heroGenres.innerHTML = (hero.genres || []).map(g => `
+                    <span class="px-3.5 py-1.5 text-xs font-title font-bold uppercase tracking-wider rounded-md bg-bgCard border border-borderDark text-textMain">
+                        ${g}
+                    </span>
+                `).join('');
+
+                // 4. RENDER ABOUT SECTION
+                document.getElementById('about-section-title').textContent = about.sectionTitle;
+                document.getElementById('about-headline').textContent = about.headline;
+                document.getElementById('about-venues-title').textContent = about.notableVenuesTitle || "Notable Venues & Festivals";
+                
+                const paragraphsEl = document.getElementById('about-paragraphs');
+                if (about.paragraphs && about.paragraphs.length > 0) {
+                    paragraphsEl.innerHTML = about.paragraphs.map(p => `<p>${p}</p>`).join('');
+                } else {
+                    paragraphsEl.classList.add('hidden');
+                }
+                
+                document.getElementById('about-stats').innerHTML = (about.stats || []).map(s => `
+                    <div class="p-5 rounded-xl bg-bgCard border border-borderDark">
+                        <p class="font-title font-extrabold text-3xl sm:text-4xl text-accent">${s.value}</p>
+                        <p class="text-xs font-title uppercase tracking-wider text-textMuted mt-1">${s.label}</p>
+                    </div>
+                `).join('');
+                document.getElementById('about-venues').innerHTML = (about.notableVenues || []).map(v => `
+                    <span class="px-3 py-1 text-xs font-medium rounded bg-bgElevated text-textMain border border-borderDark">${v}</span>
+                `).join('');
+
+                // 5. RENDER MUSIC & MIXES
+                document.getElementById('music-section-title').textContent = music.sectionTitle;
+                document.getElementById('music-subtitle').textContent = music.subtitle;
+                document.getElementById('music-embeds').innerHTML = (music.embeds || []).map(item => `
+                    <div class="rounded-2xl bg-bgCard border border-borderDark overflow-hidden flex flex-col">
+                        <div class="px-5 py-3.5 border-b border-borderDark flex items-center justify-between">
+                            <span class="font-title font-bold text-sm text-textMain truncate pr-2">${item.title}</span>
+                            <span class="text-[11px] font-title font-bold uppercase px-2.5 py-0.5 rounded bg-bgElevated text-accent shrink-0">${item.platform}</span>
+                        </div>
+                        <div class="w-full h-64 bg-black">
+                            <iframe width="100%" height="100%" scrolling="no" frameborder="no" allow="autoplay; encrypted-media" src="${item.embedUrl}" title="${item.title}" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                `).join('');
+
+                document.getElementById('music-tracks').innerHTML = (music.topTracks || []).map((track, idx) => `
+                    <a href="${track.url}" target="_blank" rel="noopener noreferrer" 
+                       class="group p-4 sm:p-5 rounded-xl bg-bgCard border border-borderDark hover-border-accent flex items-center justify-between gap-4 transition-colors">
+                        <div class="flex items-center gap-4 min-w-0">
+                            <span class="font-title font-bold text-lg text-textMuted group-hover:text-accent transition-colors w-6">0${idx + 1}</span>
+                            <div class="min-w-0">
+                                <h4 class="font-title font-bold text-base text-textMain truncate group-hover:text-accent transition-colors">${track.title}</h4>
+                                <p class="text-xs text-textMuted mt-0.5">${track.artistOrRemix} &bull; ${track.duration}</p>
+                            </div>
+                        </div>
+                        <span class="shrink-0 w-10 h-10 rounded-lg bg-bgElevated border border-borderDark flex items-center justify-center text-textMain group-hover:bg-[var(--accent)] group-hover:text-[var(--accent-text)] transition-colors">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </span>
+                    </a>
+                `).join('');
+
+                // 6. RENDER GIGS & TOUR DATES
+                document.getElementById('gigs-section-title').textContent = gigs.sectionTitle;
+                document.getElementById('gigs-list').innerHTML = (gigs.items || []).map(gig => {
+                    const statusLower = gig.status.toLowerCase();
+                    const isPast = statusLower === 'past';
+                    const isSoldOut = statusLower === 'sold out';
+
+                    let badge = '';
+                    if (isPast) {
+                        badge = `<span class="px-3.5 py-1.5 rounded-lg text-xs font-title font-bold uppercase bg-bgElevated text-textMuted border border-borderDark">Past Show</span>`;
+                    } else if (isSoldOut) {
+                        badge = `<span class="px-3.5 py-1.5 rounded-lg text-xs font-title font-bold uppercase bg-red-950 text-red-400 border border-red-800">Sold Out</span>`;
+                    } else {
+                        badge = `<a href="${gig.ticketUrl}" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 rounded-lg text-xs font-title font-bold uppercase btn-accent transition-transform active:scale-95">${gig.status}</a>`;
+                    }
+
+                    return `
+                        <div class="p-5 sm:px-8 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${isPast ? 'opacity-60' : 'hover:bg-bgElevated'} transition-colors">
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8">
+                                <span class="font-title font-bold text-sm sm:text-base text-accent w-32 shrink-0">${gig.date}</span>
+                                <div>
+                                    <h4 class="font-title font-bold text-lg text-textMain">${gig.event}</h4>
+                                    <p class="text-sm text-textMuted">${gig.venue} &mdash; <span class="text-textMain font-medium">${gig.city}</span></p>
+                                </div>
+                            </div>
+                            <div class="shrink-0">${badge}</div>
+                        </div>
+                    `;
+                }).join('');
+
+                // 7. RENDER GALLERY & ATUR JUMLAH KOLOM DINAMIS (`galleryColumns`) - RASIO POTRAIT 9:16
+                document.getElementById('gallery-section-title').textContent = gallery.sectionTitle;
+                document.getElementById('gallery-subtitle').textContent = gallery.subtitle;
+                document.getElementById('gallery-download-text').textContent = gallery.downloadButtonText;
+                document.getElementById('gallery-download-btn').href = gallery.downloadUrl;
+
+                const galleryGrid = document.getElementById('gallery-grid');
+                const colCount = theme.layout.galleryColumns || 3;
+                const lgColsClass = colCount === 2 ? 'lg:grid-cols-2' : colCount === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
+                galleryGrid.className = `grid grid-cols-1 sm:grid-cols-2 ${lgColsClass} gap-6`;
+
+                galleryGrid.innerHTML = (gallery.photos || []).map((photo, index) => `
+                    <button type="button" data-source="gallery" data-index="${index}" class="gallery-item group relative rounded-2xl overflow-hidden border border-borderDark bg-bgCard aspect-[9/16] text-left focus:outline-none hover-border-accent">
+                        <img src="${photo.url}" 
+                             style="object-position: ${photo.objectPosition || 'center center'};"
+                             onerror="this.onerror=null;this.src='https://placehold.co/900x1600/121215/CC0000?text=FOTO+GALERI+${index + 1}';"
+                             alt="${photo.caption || `Foto Galeri ${index + 1}`}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-x-0 bottom-0 bg-bgMain border-t border-borderDark px-4 py-3 flex items-center justify-between">
+                            <span class="text-xs font-medium text-textMain truncate pr-2">${photo.caption || ''}</span>
+                            <span class="text-xs font-title font-bold text-accent shrink-0">Zoom +</span>
+                        </div>
+                    </button>
+                `).join('');
+
+                // 8. RENDER DJ COLLECTIVE SECTION (LOGO, FOTO & VIDEO)
+                if (collective) {
+                    document.getElementById('collective-eyebrow').textContent = collective.eyebrow || 'DJ Collective & Crew';
+                    document.getElementById('collective-description').textContent = collective.description || '';
+
+                    // Pengaturan Logo PNG vs Teks Nama Collective
+                    const collLogoImg = document.getElementById('collective-logo-img');
+                    const collTitleEl = document.getElementById('collective-title');
+                    collTitleEl.textContent = collective.name || 'DJ COLLECTIVE';
+
+                    const collLogoCfg = collective.logo || {};
+                    root.style.setProperty('--collective-logo-h-desktop', `${collLogoCfg.heightDesktop || 96}px`);
+                    root.style.setProperty('--collective-logo-h-mobile', `${collLogoCfg.heightMobile || 64}px`);
+
+                    if (collLogoCfg.useLogo && collLogoCfg.url) {
+                        collLogoImg.src = collLogoCfg.url;
+                        collLogoImg.alt = `Logo ${collective.name || 'Collective'}`;
+                        collLogoImg.classList.remove('hidden');
+                        collTitleEl.classList.add('hidden');
+
+                        collLogoImg.onerror = () => {
+                            collLogoImg.classList.add('hidden');
+                            if (collLogoCfg.fallbackToText !== false) {
+                                collTitleEl.classList.remove('hidden');
+                            }
+                        };
+                    } else {
+                        collLogoImg.classList.add('hidden');
+                        collTitleEl.classList.remove('hidden');
+                    }
+
+                    // Tombol Link Collective
+                    const collActionWrapper = document.getElementById('collective-action-wrapper');
+                    const collLinkBtn = document.getElementById('collective-link-btn');
+                    if (collective.linkUrl && collective.linkUrl.trim() !== '') {
+                        collActionWrapper.classList.remove('hidden');
+                        collLinkBtn.href = collective.linkUrl;
+                        document.getElementById('collective-link-text').textContent = collective.linkText || 'Follow Collective';
+                    } else {
+                        collActionWrapper.classList.add('hidden');
+                    }
+
+                    // Render Foto Collective
+                    const collPhotosBlock = document.getElementById('collective-photos-block');
+                    const collPhotosGrid = document.getElementById('collective-photos-grid');
+                    document.getElementById('collective-photos-heading').textContent = collective.photosTitle || 'Collective Photos';
+
+                    const collPhotos = collective.photos || [];
+                    if (collPhotos.length === 0) {
+                        collPhotosBlock.classList.add('hidden');
+                    } else {
+                        collPhotosBlock.classList.remove('hidden');
+                        const collColCount = theme.layout.collectivePhotoColumns || 3;
+                        const collLgColsClass = collColCount === 2 ? 'lg:grid-cols-2' : collColCount === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
+                        collPhotosGrid.className = `grid grid-cols-1 sm:grid-cols-2 ${collLgColsClass} gap-6`;
+
+                        const photoAspectMap = {
+                            '9/16': 'aspect-[9/16]',
+                            '4/5': 'aspect-[4/5]',
+                            '1/1': 'aspect-square',
+                            '4/3': 'aspect-[4/3]',
+                            '16/9': 'aspect-video'
+                        };
+                        const aspectClass = photoAspectMap[collective.photoAspectRatio] || 'aspect-[4/5]';
+
+                        collPhotosGrid.innerHTML = collPhotos.map((photo, index) => `
+                            <button type="button" data-source="collective" data-index="${index}" class="gallery-item group relative rounded-2xl overflow-hidden border border-borderDark bg-bgCard ${aspectClass} text-left focus:outline-none hover-border-accent">
+                                <img src="${photo.url}" 
+                                     style="object-position: ${photo.objectPosition || 'center center'};"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/800x1000/121215/CC0000?text=COLLECTIVE+FOTO+${index + 1}';"
+                                     alt="${photo.caption || `Foto Collective ${index + 1}`}" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                <div class="absolute inset-x-0 bottom-0 bg-bgMain border-t border-borderDark px-4 py-3 flex items-center justify-between">
+                                    <span class="text-xs font-medium text-textMain truncate pr-2">${photo.caption || ''}</span>
+                                    <span class="text-xs font-title font-bold text-accent shrink-0">Zoom +</span>
+                                </div>
+                            </button>
+                        `).join('');
+                    }
+
+                    // Render Video Collective (Mendukung File Lokal MP4 & Embed YouTube)
+                    const collVideosBlock = document.getElementById('collective-videos-block');
+                    const collVideosGrid = document.getElementById('collective-videos-grid');
+                    document.getElementById('collective-videos-heading').textContent = collective.videosTitle || 'Collective Videos & Aftermovies';
+
+                    const collVideos = collective.videos || [];
+                    if (collVideos.length === 0) {
+                        collVideosBlock.classList.add('hidden');
+                    } else {
+                        collVideosBlock.classList.remove('hidden');
+                        const vidColCount = collective.videoColumns || 2;
+                        const vidLgColsClass = vidColCount === 1 ? 'lg:grid-cols-1' : vidColCount === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2';
+                        collVideosGrid.className = `grid grid-cols-1 ${vidLgColsClass} gap-6`;
+
+                        const vidAspectClass = collective.videoAspectRatio === '9/16' ? 'aspect-[9/16] max-w-sm mx-auto w-full' : 'aspect-video w-full';
+
+                        collVideosGrid.innerHTML = collVideos.map(vid => {
+                            const isYoutube = (vid.type || '').toLowerCase() === 'youtube';
+                            const playerHtml = isYoutube
+                                ? `<iframe class="w-full h-full" src="${vid.url}" title="${vid.title || 'Collective Video'}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`
+                                : `<video class="w-full h-full object-cover" controls playsinline preload="metadata" ${vid.poster ? `poster="${vid.poster}"` : ''}>
+                                       <source src="${vid.url}" type="video/mp4">
+                                       Browser Anda tidak mendukung pemutar video HTML5.
+                                   </video>`;
+
+                            return `
+                                <div class="rounded-2xl bg-bgCard border border-borderDark overflow-hidden flex flex-col">
+                                    <div class="px-5 py-3.5 border-b border-borderDark flex items-center justify-between gap-2">
+                                        <span class="font-title font-bold text-sm text-textMain truncate">${vid.title || 'Collective Video'}</span>
+                                        <span class="text-[11px] font-title font-bold uppercase px-2.5 py-0.5 rounded bg-bgElevated text-accent shrink-0">
+                                            ${isYoutube ? 'YouTube' : 'Video'}
+                                        </span>
+                                    </div>
+                                    <div class="bg-black ${vidAspectClass}">
+                                        ${playerHtml}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                    }
+                }
+
+                // Lightbox Modal Logic (Untuk Galeri Foto Utama & Foto Collective)
+                const lightboxModal = document.getElementById('lightbox-modal');
+                const lightboxImg = document.getElementById('lightbox-img');
+                const lightboxCaption = document.getElementById('lightbox-caption');
+
+                document.querySelectorAll('.gallery-item').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const source = btn.getAttribute('data-source');
+                        const idx = btn.getAttribute('data-index');
+                        const selected = source === 'collective'
+                            ? (collective && collective.photos[idx])
+                            : gallery.photos[idx];
+
+                        if (selected) {
+                            lightboxImg.src = selected.url;
+                            lightboxCaption.textContent = selected.caption || '';
+                            lightboxModal.classList.remove('hidden');
+                        }
+                    });
+                });
+
+                const closeLightbox = () => lightboxModal.classList.add('hidden');
+                document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+                lightboxModal.addEventListener('click', (e) => { if (e.target === lightboxModal) closeLightbox(); });
+
+                // 9. RENDER TECHNICAL RIDER
+                document.getElementById('rider-section-title').textContent = rider.sectionTitle;
+                document.getElementById('rider-equipment').innerHTML = (rider.equipment || []).map(eq => `
+                    <div class="p-6 rounded-2xl bg-bgCard border border-borderDark space-y-2">
+                        <span class="text-xs font-title font-bold uppercase tracking-wider text-accent">${eq.category}</span>
+                        <h4 class="font-title font-bold text-lg text-textMain">${eq.item}</h4>
+                        <p class="text-sm text-textMuted leading-relaxed">${eq.detail}</p>
+                    </div>
+                `).join('');
+                document.getElementById('rider-notes').innerHTML = (rider.notes || []).map(note => `
+                    <li class="flex items-start gap-2.5">
+                        <span class="text-accent font-bold mt-0.5">&check;</span>
+                        <span>${note}</span>
+                    </li>
+                `).join('');
+
+                // 10. RENDER CONTACT & SOCIAL MEDIA
+                document.getElementById('contact-headline').textContent = contact.headline;
+                document.getElementById('contact-subtext').textContent = contact.subtext;
+                document.getElementById('contact-manager-name').textContent = contact.managerName;
+                document.getElementById('contact-email-display').textContent = contact.email;
+                document.getElementById('contact-phone-display').textContent = `+${contact.whatsappNumber}`;
+                document.getElementById('footer-dj-name').textContent = hero.djName;
+                document.getElementById('current-year').textContent = new Date().getFullYear();
+
+                document.getElementById('contact-wa-btn').href = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(contact.whatsappMessage)}`;
+
+                document.getElementById('copy-email-btn').addEventListener('click', () => {
+                    const temp = document.createElement('input');
+                    temp.value = contact.email;
+                    document.body.appendChild(temp);
+                    temp.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(temp);
+
+                    const fb = document.getElementById('copy-feedback');
+                    fb.classList.remove('hidden');
+                    setTimeout(() => fb.classList.add('hidden'), 3000);
+                });
+
+                const socialIcons = {
+                    instagram: `<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`,
+                    tiktok: `<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>`,
+                    soundcloud: `<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M11.56 8.87V17h8.76c1.85-.13 2.68-1.27 2.68-2.67 0-1.48-1.12-2.67-2.63-2.67-.33 0-.65.06-.95.17-.22-2.43-2.26-4.33-4.74-4.33-1.2 0-2.29.45-3.12 1.18v.19zm-2.14 1.34V17h1.28V9.63c-.46.15-.89.35-1.28.58zm-2.14 1.84V17h1.28v-5.38c-.45.1-.88.24-1.28.43zm-2.14.66V17h1.28v-4.38c-.44.03-.87.06-1.28.09zm-2.14.95V17h1.28v-3.38c-.44.01-.87.02-1.28.04zM1 14.84V17h1.14v-2.48c-.64.26-1.14.98-1.14 1.68v-.36z"/></svg>`,
+                    spotify: `<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>`,
+                    youtube: `<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`
+                };
+
+                document.getElementById('social-links-container').innerHTML = Object.entries(contact.socials || {})
+                    .filter(([_, url]) => url && url.trim() !== "")
+                    .map(([platform, url]) => `
+                        <a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${platform}"
+                           class="w-11 h-11 rounded-xl bg-bgCard border border-borderDark hover-border-accent flex items-center justify-center text-textMuted hover:text-accent transition-colors">
+                            ${socialIcons[platform] || platform}
+                        </a>
+                    `).join('');
+
+                // 11. TOGGLE MENU MOBILE
+                document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                document.querySelectorAll('.mobile-link').forEach(link => {
+                    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+                });
+
+            } catch (err) {
+                console.error("Kesalahan saat memuat siteData:", err);
+            }
+        });
+    </script>
+</body>
+</html>
